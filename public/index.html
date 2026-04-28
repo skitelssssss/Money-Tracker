@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Money Tracker</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; max-width: 400px; margin: 0 auto; padding: 20px; }
+    h1 { text-align: center; }
+  </style>
+</head>
+<body>
+  <h1>Money Tracker</h1>
+  <div id="status">Загрузка...</div>
+  <script>
+    const tg = window.Telegram.WebApp;
+    tg.ready();
+    tg.expand();
+    document.getElementById('status').textContent = 'Готово! ID: ' + tg.initDataUnsafe?.user?.id;
+  </script>
+</body>
+</html>

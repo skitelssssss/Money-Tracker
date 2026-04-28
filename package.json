@@ -1,0 +1,35 @@
+{
+  "name": "money-tracker-tma",
+  "version": "1.0.0",
+  "description": "Telegram Mini App — учет доходов и расходов",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon --exec tsx src/server.js",
+    "start": "tsx src/server.js",
+    "lint": "eslint src/"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/adapter-better-sqlite3": "^7.8.0",
+    "@prisma/client": "^7.8.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^4.22.1",
+    "express-async-errors": "^3.1.1",
+    "express-rate-limit": "^8.4.1",
+    "grammy": "^1.42.0",
+    "helmet": "^8.1.0",
+    "morgan": "^1.10.1",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "eslint": "^10.2.1",
+    "nodemon": "^3.1.14",
+    "prettier": "^3.8.3",
+    "prisma": "^7.8.0",
+    "tsx": "^4.21.0"
+  }
+}

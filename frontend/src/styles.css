@@ -1,0 +1,214 @@
+/* === Telegram CSS Variables (падают из WebApp SDK) === */
+:root {
+  --tg-bg: var(--tg-theme-bg-color, #ffffff);
+  --tg-text: var(--tg-theme-text-color, #000000);
+  --tg-hint: var(--tg-theme-hint-color, #999999);
+  --tg-link: var(--tg-theme-link-color, #2481cc);
+  --tg-button: var(--tg-theme-button-color, #2481cc);
+  --tg-button-text: var(--tg-theme-button-text-color, #ffffff);
+  --tg-secondary-bg: var(--tg-theme-secondary-bg-color, #f0f0f0);
+  --tg-destructive: var(--tg-theme-destructive-text-color, #ff3b30);
+
+  --radius: 12px;
+  --gap: 12px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--tg-bg);
+  color: var(--tg-text);
+  font-size: 16px;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+}
+
+#app {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0 16px 24px;
+}
+
+/* === Header === */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0 12px;
+}
+.app-header h1 { font-size: 22px; font-weight: 700; }
+.user-greeting { font-size: 14px; color: var(--tg-hint); }
+
+/* === Tabs === */
+.tabs {
+  display: flex;
+  gap: 4px;
+  background: var(--tg-secondary-bg);
+  border-radius: var(--radius);
+  padding: 4px;
+  margin-bottom: 16px;
+}
+.tab {
+  flex: 1;
+  padding: 10px 0;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  background: transparent;
+  color: var(--tg-text);
+  transition: all 0.2s;
+}
+.tab.active {
+  background: var(--tg-button);
+  color: var(--tg-button-text);
+}
+
+/* === Form === */
+.form-card {
+  background: var(--tg-secondary-bg);
+  border-radius: var(--radius);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+.form-group { display: flex; flex-direction: column; gap: 4px; }
+.form-group label { font-size: 13px; color: var(--tg-hint); font-weight: 500; }
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 10px 12px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-size: 16px;
+  background: var(--tg-bg);
+  color: var(--tg-text);
+  outline: none;
+  transition: border 0.2s;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--tg-button);
+}
+.form-group textarea { resize: vertical; min-height: 60px; }
+
+.type-toggle {
+  display: flex;
+  gap: 4px;
+  background: var(--tg-bg);
+  border-radius: 8px;
+  padding: 3px;
+}
+.type-btn {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  background: transparent;
+  color: var(--tg-text);
+  transition: all 0.2s;
+}
+.type-btn.active-expense { background: var(--tg-destructive); color: #fff; }
+.type-btn.active-income { background: #34c759; color: #fff; }
+
+.submit-btn {
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--tg-button);
+  color: var(--tg-button-text);
+  transition: opacity 0.2s;
+}
+.submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* === Filters === */
+.filters {
+  display: flex;
+  gap: 8px;
+  margin-bottom: var(--gap);
+}
+.filter-btn {
+  padding: 6px 14px;
+  border: 1px solid var(--tg-hint);
+  border-radius: 20px;
+  font-size: 13px;
+  cursor: pointer;
+  background: transparent;
+  color: var(--tg-text);
+  transition: all 0.2s;
+}
+.filter-btn.active {
+  background: var(--tg-button);
+  color: var(--tg-button-text);
+  border-color: var(--tg-button);
+}
+
+/* === Transaction List === */
+.tx-list { display: flex; flex-direction: column; gap: 8px; }
+.tx-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px;
+  border-radius: var(--radius);
+  background: var(--tg-secondary-bg);
+}
+.tx-left { display: flex; flex-direction: column; gap: 4px; }
+.tx-category { font-size: 15px; font-weight: 600; }
+.tx-meta { font-size: 12px; color: var(--tg-hint); }
+.tx-right { text-align: right; }
+.tx-amount { font-size: 17px; font-weight: 700; }
+.tx-amount.income { color: #34c759; }
+.tx-amount.expense { color: var(--tg-destructive); }
+.tx-delete {
+  background: none;
+  border: none;
+  color: var(--tg-destructive);
+  font-size: 18px;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--tg-hint);
+}
+
+/* === Loader === */
+.loader {
+  text-align: center;
+  padding: 20px;
+  color: var(--tg-hint);
+}
+
+/* === Toast === */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  background: #333;
+  z-index: 100;
+  transition: opacity 0.3s;
+}
+.toast.error { background: var(--tg-destructive); }
+.toast.hidden { opacity: 0; pointer-events: none; }
+
+/* === Empty state === */
+.empty-icon { font-size: 40px; margin-bottom: 8px; display: block; }
