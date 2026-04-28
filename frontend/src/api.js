@@ -1,19 +1,35 @@
 const BASE = window.location.origin;
 
+// Dev mode: use this userId when testing outside Telegram
+const DEV_USER_ID = 1;
+
 function getInitData() {
   return window.Telegram?.WebApp?.initData || '';
+}
+
+function isInTelegram() {
+  return !!window.Telegram?.WebApp?.initData;
 }
 
 async function request(path, options = {}) {
   const initData = getInitData();
 
+  const headers = {
+    'Content-Type': 'application/json',
+    ...options.headers,
+  };
+
+  // In Telegram → send initData for validation
+  // In browser → send X-User-Id for dev mode
+  if (isInTelegram() && initData) {
+    headers['X-Telegram-InitData'] = initData;
+  } else {
+    headers['X-User-Id'] = String(DEV_USER_ID);
+  }
+
   const res = await fetch(`${BASE}${path}`, {
     ...options,
-    headers: {
-      'Content-Type': 'application/json',
-      ...(initData ? { 'X-Telegram-InitData': initData } : {}),
-      ...options.headers,
-    },
+    headers,
   });
 
   const json = await res.json();
