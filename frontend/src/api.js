@@ -1,6 +1,5 @@
 const BASE = window.location.origin;
 
-// Dev mode: use this userId when testing outside Telegram
 const DEV_USER_ID = 1;
 
 function getInitData() {
@@ -8,20 +7,20 @@ function getInitData() {
 }
 
 function isInTelegram() {
-  return !!window.Telegram?.WebApp?.initData;
+  // Telegram WebApp SDK always sets platform when opened from Telegram
+  return !!window.Telegram?.WebApp?.platform;
 }
 
 async function request(path, options = {}) {
   const initData = getInitData();
+  const inTelegram = isInTelegram();
 
   const headers = {
     'Content-Type': 'application/json',
     ...options.headers,
   };
 
-  // In Telegram → send initData for validation
-  // In browser → send X-User-Id for dev mode
-  if (isInTelegram() && initData) {
+  if (inTelegram) {
     headers['X-Telegram-InitData'] = initData;
   } else {
     headers['X-User-Id'] = String(DEV_USER_ID);
@@ -49,7 +48,6 @@ export function fetchTransactions(filters = {}) {
   if (filters.type) params.set('type', filters.type);
   if (filters.page) params.set('page', filters.page);
   if (filters.limit) params.set('limit', filters.limit);
-
   const qs = params.toString();
   return request(`/api/transactions${qs ? `?${qs}` : ''}`);
 }

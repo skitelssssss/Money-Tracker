@@ -7,21 +7,20 @@ export async function authMiddleware(req, _res, next) {
   const initData = req.headers['x-telegram-initdata'];
   const userIdHeader = req.headers['x-user-id'];
 
-  // Dev mode: explicit X-User-Id header (bypasses Telegram auth)
+  // Dev mode: X-User-Id header — auto-create user if missing
   if (!initData && userIdHeader) {
-    const id = parseInt(userIdHeader, 10);
-    if (!id) {
-      throw new AppError('X-User-Id должен быть числом', 400);
-    }
-    const dbUser = await userRepo.findUserById(id);
+    const telegramId = String(userIdHeader);
+    let dbUser = await userRepo.findUserByTelegramId(telegramId);
+
     if (!dbUser) {
-      throw new AppError('Пользователь не найден', 404);
+      dbUser = await userRepo.createUser(telegramId, `dev_${telegramId}`);
     }
+
     req.user = { id: dbUser.id, telegramId: dbUser.telegramId, username: dbUser.username };
     return next();
   }
 
-  // Telegram Mini App mode: validate initData
+  // Telegram Mini App mode: validate initData signature
   if (!initData) {
     throw new AppError('X-Telegram-InitData или X-User-Id header обязателен', 401);
   }
