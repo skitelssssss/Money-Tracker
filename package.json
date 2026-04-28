@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon --exec tsx src/server.js",
-    "start": "tsx src/server.js",
+    "start": "npx tsx src/server.js",
     "lint": "eslint src/"
   },
   "keywords": [],
@@ -23,13 +23,13 @@
     "grammy": "^1.42.0",
     "helmet": "^8.1.0",
     "morgan": "^1.10.1",
+    "prisma": "^7.8.0",
+    "tsx": "^4.21.0",
     "zod": "^4.3.6"
   },
   "devDependencies": {
     "eslint": "^10.2.1",
     "nodemon": "^3.1.14",
-    "prettier": "^3.8.3",
-    "prisma": "^7.8.0",
-    "tsx": "^4.21.0"
+    "prettier": "^3.8.3"
   }
 }
